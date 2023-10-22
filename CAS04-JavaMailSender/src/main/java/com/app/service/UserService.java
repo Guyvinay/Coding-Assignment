@@ -31,6 +31,8 @@ public class UserService {
 	        return userRepository.save(user);
 	    }
 	
-
+	    public String test(Users user) {
+	    	return user.getEmail()+" "+user.getPassword();
+	    }
 	
 }
