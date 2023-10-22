@@ -17,18 +17,19 @@ public class UserService {
 	    private PasswordEncoder passwordEncoder; // Use BCryptPasswordEncoder
 
 	    public Users registerUsers(Users user) {
-	        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
-	            throw new UsersRegistrationException("Usersname is already taken");
-	        }
-
-	        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
-	            throw new UsersRegistrationException("Email is already registered");
-	        }
+//	        if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+//	            throw new UsersRegistrationException("Usersname is already taken");
+//	        }
+//
+//	        if (userRepository.findByEmail(user.getEmail()).isPresent()) {
+//	            throw new UsersRegistrationException("Email is already registered");
+//	        }
 
 	        // Encrypt password before saving to the database
 	        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-	        return userRepository.save(user);
+//	        return userRepository.save(user);
+	        return user;
 	    }
 	
 	    public String test(Users user) {

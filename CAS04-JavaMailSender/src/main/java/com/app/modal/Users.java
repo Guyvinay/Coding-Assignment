@@ -18,12 +18,15 @@ public class Users {
     @NotBlank
     private String username;
 
-    @NotBlank
-    @Email
+//    @NotBlank
+//    @Email
     private String email;
 
-    @NotBlank
+//    @NotBlank
     private String password;
+    
+    private String mailHeading;
+    private String mailBody;
 
     // Other fields, getters, setters, and constructors as needed
 }

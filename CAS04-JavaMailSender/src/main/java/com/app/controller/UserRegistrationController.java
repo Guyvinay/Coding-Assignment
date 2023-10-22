@@ -12,7 +12,10 @@ import com.app.modal.Users;
 import com.app.service.EmailService;
 import com.app.service.UserService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class UserRegistrationController {
 
 	@Autowired
@@ -23,9 +26,9 @@ public class UserRegistrationController {
 	
 	@PostMapping(value = "/register")
 	public ResponseEntity<Users> registerUser(@RequestBody Users users){
-		
-		emailService.sendEmail(users.getEmail(), users.getUsername());
-		
+		log.info("inside Regoster before sendEmail");
+		emailService.sendEmail(users);
+		log.info("inside Regoster after sendEmail");
 		return new ResponseEntity<Users>(userService.registerUsers(users),HttpStatus.ACCEPTED);
 	}
 	@PostMapping(value = "/test")

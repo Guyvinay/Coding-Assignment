@@ -19,7 +19,7 @@ public class AppConfig {
 
 	
 	@Bean
-	public SecurityFilterChain securityFilterChain(
+	 SecurityFilterChain securityFilterChain(
 			HttpSecurity httpSecurity) throws Exception {
 		
 		httpSecurity
@@ -38,7 +38,7 @@ public class AppConfig {
 	}
 	
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	 PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
@@ -48,16 +48,18 @@ public class AppConfig {
 		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
 		
 		
-		mailSenderImpl.setHost("smtp.elasticemail.com");
-		mailSenderImpl.setPort(2525); 	
-		mailSenderImpl.setUsername("indexvinay1@gmail.com");
-		mailSenderImpl.setPassword("BA0A1DADDA5E3373FD3C29C931D8A14D2842");
-		
+		mailSenderImpl.setHost("host_goes_here");
+		mailSenderImpl.setPort(587); 	
+		mailSenderImpl.setUsername("username_goes_here");
+		mailSenderImpl.setPassword("password_goes_here");
+
 		Properties props = mailSenderImpl.getJavaMailProperties();
 		    props.put("mail.transport.protocol", "smtp");
 	        props.put("mail.smtp.auth", "true");
 	        props.put("mail.smtp.starttls.enable", "true");
-
+	        
+	        System.out.println(mailSenderImpl);
+	        
 		return mailSenderImpl;
 	}
 	
