@@ -48,11 +48,11 @@ public class AppConfig {
 		JavaMailSenderImpl mailSenderImpl = new JavaMailSenderImpl();
 		
 		
-		mailSenderImpl.setHost("host_goes_here");
+		mailSenderImpl.setHost("smtp-relay.brevo.com");
 		mailSenderImpl.setPort(587); 	
-		mailSenderImpl.setUsername("username_goes_here");
-		mailSenderImpl.setPassword("password_goes_here");
-
+		mailSenderImpl.setUsername("mrsinghvinay563@gmail.com");
+		mailSenderImpl.setPassword("dvx9ZbK5YBOFwpNg");
+		
 		Properties props = mailSenderImpl.getJavaMailProperties();
 		    props.put("mail.transport.protocol", "smtp");
 	        props.put("mail.smtp.auth", "true");
