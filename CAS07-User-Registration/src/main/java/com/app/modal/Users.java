@@ -1,5 +1,8 @@
 package com.app.modal;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,10 +22,10 @@ public class Users {
 	private Long userId;
 	
 	@NotBlank(message = "First Name cannot be blank")
-	private String firstName;
+	private String first_name;
 	
 	@NotBlank(message = "Last Name cannot be blank")
-	private String lastName;
+	private String last_name;
 	
 	@Email(message = "Email Must be in Valid Format")
 	@NotBlank(message = "Email Name cannot be blank")
@@ -33,8 +36,9 @@ public class Users {
 	private String mobile;
 	
 	@Size(min = 8, message = "Password must be of minimum 8 characters.")
-	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).*&" , message = "Password must contain at least one Uppercase Later, one special character, and must not contain whitespaces.")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).*$", message = "Password requirements not met")
 	@NotBlank(message = "Password cannot be blank")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String password;
 	
 	@NotBlank(message = "Role cannot be blank")
