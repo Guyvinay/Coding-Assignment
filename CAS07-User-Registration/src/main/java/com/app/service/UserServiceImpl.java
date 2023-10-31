@@ -65,8 +65,13 @@ public class UserServiceImpl implements UsersService {
 			System.out.println(token);
 			
 			Map<String, Object> responseBody = new HashMap<>();
-            responseBody.put("userDetails", user);
-            responseBody.put("token", token);
+			Map<String, Object> data = new HashMap<>();
+
+			responseBody.put("status", 200);
+			responseBody.put("message", "Logged in Successfully");
+			data.put("UserDetails", user);
+			data.put("token", token);
+            responseBody.put("data", data);
             return responseBody;
 		}
 		
