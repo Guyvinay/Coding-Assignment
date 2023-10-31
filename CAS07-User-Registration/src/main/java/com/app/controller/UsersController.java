@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
+import com.app.modal.UserLoginRequest;
 import com.app.modal.Users;
 import com.app.service.UsersService;
 
@@ -38,4 +41,12 @@ public class UsersController {
 	public ResponseEntity<Users> getUserByEmai(@PathVariable("email")String email){
 		return new ResponseEntity<Users>(usersService.getUserDetails(email),HttpStatus.ACCEPTED);
 	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody UserLoginRequest request){
+		Map<String,Object> login = usersService.login(request);
+		if(login!=null) return ResponseEntity.ok(login);
+        throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid password.");
+	}
+	
 }
