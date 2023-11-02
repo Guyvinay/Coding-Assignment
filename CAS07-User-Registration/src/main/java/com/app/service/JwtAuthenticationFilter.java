@@ -16,6 +16,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		
 		String token = extractToken(request);
+		
 
 	}
 	private String extractToken(HttpServletRequest request) {

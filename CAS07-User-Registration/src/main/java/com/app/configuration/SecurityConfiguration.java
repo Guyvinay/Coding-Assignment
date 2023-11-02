@@ -1,5 +1,6 @@
 package com.app.configuration;
 
+import java.security.Key;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -15,6 +16,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
@@ -61,6 +64,12 @@ public class SecurityConfiguration {
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+	
+	
+	@Bean
+	Key jwtKey() {
+		return Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	}
 	
 }

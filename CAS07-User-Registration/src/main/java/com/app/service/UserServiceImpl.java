@@ -23,7 +23,8 @@ import io.jsonwebtoken.security.Keys;
 @Service
 public class UserServiceImpl implements UsersService {
 
-    private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+	@Autowired
+    private Key secretKey;
 	
 	@Autowired
 	private UsersRepository usersRepository;
@@ -88,8 +89,9 @@ public class UserServiceImpl implements UsersService {
 	
 	public String generateToken(Users user) {
 		Date now = new Date();
-		Date valid = new Date(now.getTime()+30 * 24 * 3600 * 1000);
-		
+		System.out.println(now);
+		Date valid = new Date(System.currentTimeMillis() + 30L * 24 * 3600 * 1000);
+		System.out.println(valid);
 		String token =  Jwts
 				           .builder()
 				           .setSubject(user.getEmail())

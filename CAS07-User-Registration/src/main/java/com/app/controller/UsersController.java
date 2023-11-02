@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.app.modal.UserLoginRequest;
 import com.app.modal.Users;
+import com.app.service.JwtUtils;
 import com.app.service.UsersService;
 
 import jakarta.validation.Valid;
@@ -47,6 +48,9 @@ public class UsersController {
 	@Autowired
 	private UsersService usersService;
 	
+	@Autowired
+	private JwtUtils jwtUtils;
+	
 	@PostMapping(value = "/register")
 	public ResponseEntity<Map<String, Object>> saveUser(@Valid @RequestBody Users user){
 		return new ResponseEntity<Map<String, Object>>(usersService.registerUser(user),HttpStatus.ACCEPTED);
@@ -65,10 +69,11 @@ public class UsersController {
 	@GetMapping(value="/details")
 	public ResponseEntity<?> getUserByJwtToke(@RequestHeader("Authorization")String token){
 		String jwtToken = token.replace("Bearer ", "");
-
+		
+		String username = jwtUtils.extractUserName(jwtToken);
 		
 		
-		return ResponseEntity.ok(token);
+		return ResponseEntity.ok(username);
 	}
 	
 	
