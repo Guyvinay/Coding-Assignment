@@ -1,5 +1,9 @@
 package com.app.service;
 
-public interface ReviewService {
+import com.app.modal.Review;
 
+public interface ReviewService {
+	Review creatReview(Review review);
+	Review getReviewById(Long reviewId);
+	String deleteReviewById(Long reviewId);
 }

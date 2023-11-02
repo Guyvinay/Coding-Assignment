@@ -6,4 +6,5 @@ public interface ProductService {
 
 	 Product createProduct(Product product);
 	 Product getProductById(Long product_id);
+	 String deleteProductById(Long productId);
 }
