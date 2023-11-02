@@ -69,11 +69,9 @@ public class UsersController {
 	@GetMapping(value="/details")
 	public ResponseEntity<?> getUserByJwtToke(@RequestHeader("Authorization")String token){
 		String jwtToken = token.replace("Bearer ", "");
-		
 		String username = jwtUtils.extractUserName(jwtToken);
-		
-		
-		return ResponseEntity.ok(username);
+		Users user = usersService.getUserDetails(username);
+		return ResponseEntity.ok(user);
 	}
 	
 	
