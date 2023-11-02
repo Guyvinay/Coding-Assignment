@@ -1,6 +1,9 @@
 package com.app.service;
 
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,14 +31,20 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public Review getReviewById(Long reviewId) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Review> optional = reviewRepository.findById(reviewId);
+		return optional.get();
 	}
 
 	@Override
 	public String deleteReviewById(Long reviewId) {
-		// TODO Auto-generated method stub
-		return null;
+		reviewRepository.deleteById(reviewId);
+		return "Review Succesfully Deleted";
+	}
+
+	@Override
+	public List<Review> getAllReviews() {
+		List<Review> reviews = reviewRepository.findAll();
+		return reviews;
 	}
 
 }
