@@ -23,9 +23,11 @@ public class ReviewServiceImpl implements ReviewService {
 	
 	@Override
 	public Review creatReview(Review review, Long productId) {
-		System.out.println("From Create Review Service Impl");
+//		System.out.println("From Create Review Service Impl-1");
 		Product product = productRepository.findById(productId).get();
+//		System.out.println("From Create Review Service Impl-2");
 		review.setProduct(product);		
+//		System.out.println("From Create Review Service Imp3");
 		return reviewRepository.save(review);
 	}
 

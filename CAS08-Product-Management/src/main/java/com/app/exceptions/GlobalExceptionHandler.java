@@ -24,6 +24,7 @@ public class GlobalExceptionHandler {
 	
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ExceptionDefinition> globalException(Exception ex, WebRequest wb){
+		System.out.println("From Exception Class");
 		return new ResponseEntity<ExceptionDefinition>(
 			new ExceptionDefinition(
 				LocalDateTime.now(),

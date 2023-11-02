@@ -20,13 +20,14 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	@PostMapping(value = "/createReview/{productId}")
-	public ResponseEntity<String> createReview(
+	public ResponseEntity<Review> createReview(
 			@RequestBody Review review, 
 			@PathVariable("productId")Long productId
 			){
+//		System.out.println("FROM CREATE REVIEW-1");
 		Review creatReview = reviewService.creatReview(review, productId);
-		System.out.println(creatReview);
-		return new ResponseEntity<String>("Success",HttpStatus.ACCEPTED);
+//		System.out.println("FROM CREATE REVIEW-2");
+		return new ResponseEntity<Review>(creatReview,HttpStatus.ACCEPTED);
 	}
 	
 }
