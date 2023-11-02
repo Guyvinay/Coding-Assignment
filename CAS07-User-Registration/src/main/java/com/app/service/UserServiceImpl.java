@@ -32,10 +32,17 @@ public class UserServiceImpl implements UsersService {
 	private PasswordEncoder passwordEncoder;
 	
 	@Override
-	public Users registerUser(Users user) {
+	public Map<String, Object>  registerUser(Users user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole("ROLE_"+user.getRole().toUpperCase());
-		return usersRepository.save(user);
+		 Users save = usersRepository.save(user);
+		 
+		 Map<String, Object> responseBody = new HashMap<>();
+		    responseBody.put("status", 200);
+			responseBody.put("message", "Logged in Successfully");
+			responseBody.put("userData", save);
+			
+			return responseBody;
 	}
 
 	@Override
@@ -74,8 +81,9 @@ public class UserServiceImpl implements UsersService {
             responseBody.put("data", data);
             return responseBody;
 		}
-		
-		return null;
+		else {
+			throw new UserNotFound("Wrong Creadentials");
+		}
 	}
 	
 	public String generateToken(Users user) {

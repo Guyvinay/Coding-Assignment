@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,6 +21,25 @@ import com.app.service.UsersService;
 
 import jakarta.validation.Valid;
 
+/*
+//login
+{
+   "email":"vinay@gmail.com",
+   "password":"Vinay@1234"
+}
+
+
+{
+    "status":"active",
+    "role":"ADMIN",
+    "password":"User@1234",
+    "mobile":"1234567890",
+    "email":"userone@gmail.com",
+    "last_name":" One ",
+    "first_name":"User"
+}
+*/
+
 @RestController
 @RequestMapping(value = "/users")
 public class UsersController {
@@ -28,8 +48,8 @@ public class UsersController {
 	private UsersService usersService;
 	
 	@PostMapping(value = "/register")
-	public ResponseEntity<Users> saveUser(@Valid @RequestBody Users user){
-		return new ResponseEntity<Users>(usersService.registerUser(user),HttpStatus.ACCEPTED);
+	public ResponseEntity<Map<String, Object>> saveUser(@Valid @RequestBody Users user){
+		return new ResponseEntity<Map<String, Object>>(usersService.registerUser(user),HttpStatus.ACCEPTED);
 	}
 	
 	@GetMapping(value = "/getAllUsers")
@@ -41,6 +61,17 @@ public class UsersController {
 	public ResponseEntity<Users> getUserByEmai(@PathVariable("email")String email){
 		return new ResponseEntity<Users>(usersService.getUserDetails(email),HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping(value="/details")
+	public ResponseEntity<?> getUserByJwtToke(@RequestHeader("Authorization")String token){
+		String jwtToken = token.replace("Bearer ", "");
+
+		
+		
+		return ResponseEntity.ok(token);
+	}
+	
+	
 	
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody UserLoginRequest request){
