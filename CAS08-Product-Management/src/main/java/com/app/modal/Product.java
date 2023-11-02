@@ -25,7 +25,7 @@ public class Product { //Inverse Side
 	private LocalDate cDate = LocalDate.now();
 	private LocalDate uDate = LocalDate.now();
 	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "product")
 	private List<Review> reviews = new ArrayList<>();
 	
 }

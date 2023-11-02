@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class ProductServiceImpl implements ProductService {
 	public String deleteProductById(Long productId) {
 		productRepository.deleteById(productId);
 		return "SuccessFully Deleted";
+	}
+
+	@Override
+	public List<Product> getAllProducts() {
+		return productRepository.findAll();
 	}
 
 }

@@ -2,6 +2,8 @@ package com.app.modal;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,9 +26,10 @@ public class Review { //Owning side
 	private Long _id;
 	private String userId;
 	private String description;
-	private LocalDate cDate;
-	private LocalDate uDate;
+	private LocalDate cDate=LocalDate.now();
+	private LocalDate uDate=LocalDate.now();
 	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;
