@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,37 @@ public class TaskServiceImpl implements TaskService {
 				()-> new TaskNotFoundException("Task Not Found With id:- "+title)
 				);
 		return task;
+	}
+
+	@Override
+	public Task updateTask(Task task) {
+
+		Long id = task.getId();
+		
+		Task perTask = taskRepository.findById(id).orElseThrow(
+				()-> new TaskNotFoundException("Task Not Found With id:- "+id)
+				);
+		if(task.getStatus()!=null)
+		    perTask.setStatus(task.getStatus());
+		
+		if(task.getTaskTitle()!=null)
+			perTask.setTaskTitle(task.getTaskTitle());
+		
+		if(task.getTaskDesc()!=null)
+			perTask.setTaskDesc(task.getTaskDesc());
+		
+		return taskRepository.save(perTask);
+	}
+
+	@Override
+	public String deleteTask(Long id){
+		
+		Task task = taskRepository.findById(id).orElseThrow(
+				()-> new TaskNotFoundException("Task Not Found With id:- "+id)
+				);
+		taskRepository.delete(task);
+		
+		return "Task:- "+task.getTaskTitle()+" Deleted!";
 	}
 
 }

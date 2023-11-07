@@ -10,5 +10,6 @@ public interface TaskService {
 	public List<Task> getAllTasks();
 	public Task getTaskById(Long id);
 	public Task getTaskByTitle(String title);
-	
+	public Task updateTask(Task task);
+	public String deleteTask(Long id);
 }
