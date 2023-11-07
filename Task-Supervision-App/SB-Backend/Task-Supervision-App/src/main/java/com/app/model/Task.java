@@ -18,7 +18,7 @@ public class Task {
 	private String taskTitle;
 	private String taskDesc;
 	private String status;
-	private LocalDateTime createdAt;
+	private LocalDateTime createdAt=LocalDateTime.now();
 	
 	
 	
