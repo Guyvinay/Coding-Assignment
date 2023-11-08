@@ -50,8 +50,8 @@ public class TaskController {
 		return new ResponseEntity<Map<String, List<Task>>>(taskService.getAllTasks(),HttpStatus.ACCEPTED);
 	}
 	@GetMapping(value = "/getTaskById/{id}")
-	public ResponseEntity<Task> getTaskById(@PathVariable("id") Long id) {
-		return new ResponseEntity<Task>(taskService.getTaskById(id),HttpStatus.ACCEPTED);
+	public ResponseEntity<Map<String, Task>> getTaskById(@PathVariable("id") Long id) {
+		return new ResponseEntity<Map<String, Task>>(taskService.getTaskById(id),HttpStatus.ACCEPTED);
 	}
 	@GetMapping(value = "/getTaskByTitle/{title}")
 	public ResponseEntity<Task> getTaskByTitle(@PathVariable("title")String title){

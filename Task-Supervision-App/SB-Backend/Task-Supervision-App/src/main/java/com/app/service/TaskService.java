@@ -9,7 +9,7 @@ public interface TaskService {
 
 	public Task createTask(Task task);
 	public Map<String, List<Task>> getAllTasks();
-	public Task getTaskById(Long id);
+	public Map<String, Task> getTaskById(Long id);
 	public Task getTaskByTitle(String title);
 	public Task updateTask(Task task);
 	public Map<String, String> deleteTask(Long id);

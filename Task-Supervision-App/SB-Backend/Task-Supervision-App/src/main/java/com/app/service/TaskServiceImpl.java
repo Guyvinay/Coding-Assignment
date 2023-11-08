@@ -35,11 +35,18 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public Task getTaskById(Long id) {
-		Task task = taskRepository.findById(id).orElseThrow(
-				()-> new TaskNotFoundException("Task Not Found With id:- "+id)
-				);
-		return task;
+	public Map<String, Task> getTaskById(Long id) {
+//		Task task = taskRepository.findById(id).orElseThrow(
+//				()-> new TaskNotFoundException("Task Not Found With id:- "+id)
+//				);
+		Optional<Task> optional = taskRepository.findById(id);
+		if(optional.isEmpty()) {
+			new TaskNotFoundException("Task Not Found With id:- "+id);
+		}
+		Map<String, Task> map = new HashMap<>();
+		map.put("task", optional.get());
+		
+		return map;
 	}
 
 	@Override
