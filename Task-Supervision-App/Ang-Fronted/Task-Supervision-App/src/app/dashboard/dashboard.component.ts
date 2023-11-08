@@ -12,12 +12,6 @@ export class DashboardComponent implements OnInit {
 
   allTasks:Task[]=[];
 
-  taskToBeCreated: ReqTask = {
-    taskTitle : '',
-    taskDesc: '',
-    status: ''
-  }
-
   constructor(private taskService: TaskService){}
 
   ngOnInit(): void {
@@ -26,7 +20,7 @@ export class DashboardComponent implements OnInit {
                      .subscribe(
                       (response)=>{
                         this.allTasks = response;
-                        // console.log(this.allTasks[0]);
+                        console.log(this.allTasks);
                       },
                       (error)=>{
                         console.log(error);
@@ -35,16 +29,6 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  createProject(){
-    this.taskService.createTask(this.taskToBeCreated)
-           .subscribe(
-            (response)=>{
-              console.log(response);
-            },
-            (error)=>{
-              console.log(error);
-            }
-           );
-  }
+
 
 }

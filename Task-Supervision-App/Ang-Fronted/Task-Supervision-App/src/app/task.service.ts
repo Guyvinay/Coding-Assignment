@@ -17,8 +17,8 @@ export class TaskService {
     return this.http.post<ReqTask>( `${this.baseUrl}/createTask`, task);
   }
   //   Task
-  getAllTasks(): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.baseUrl}/getAllTasks`);
+  getAllTasks(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getAllTasks`);
   }
   //   Task
   getTaskById( id: Number ): Observable<Task> {
