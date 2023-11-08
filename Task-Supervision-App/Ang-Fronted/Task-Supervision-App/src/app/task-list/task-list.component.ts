@@ -12,6 +12,8 @@ import { error } from 'console';
 export class TaskListComponent implements OnInit {
 
   allTasks:Task[]=[];
+  selectedStatus:string='all';
+  filteredTasks:Task[] = [];
 
   constructor(private taskService: TaskService){}
 
@@ -22,6 +24,7 @@ export class TaskListComponent implements OnInit {
                       (response)=>{
                         this.allTasks = response.data;
                         console.log(this.allTasks);
+                        this.filteredTasks = this.allTasks;
                       },
                       (error)=>{
                         console.log(error);
@@ -61,6 +64,16 @@ export class TaskListComponent implements OnInit {
                         console.log(error);
                       }
                     )
+  }
+
+  filterTasks(){
+    if(this.selectedStatus==='all'){
+      this.filteredTasks = this.allTasks;
+      console.log(this.filteredTasks);
+    }else{
+      this.filteredTasks = this.allTasks.filter((task)=>task.status===this.selectedStatus); 
+      console.log(this.filteredTasks);
+    };
   }
 
 }
