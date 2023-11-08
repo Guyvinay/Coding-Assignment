@@ -102,4 +102,23 @@ public class TaskServiceImpl implements TaskService {
 		
 	}
 
+	@Override
+	public Map<String, String> markTaskComplete(Long id) {
+
+		Optional<Task> optional = taskRepository.findById(id);
+		if(optional.isEmpty()) {
+			Map<String, String> map = new HashMap<>();
+			map.put("message", "Task with id: "+id+" not Found");
+			return map;		
+		}
+		else {
+		Task task = optional.get();
+		task.setStatus("Completed");
+		taskRepository.save(task);
+		Map<String, String> map = new HashMap<>();
+		map.put("message", "Task: "+task.getTaskTitle()+" Completed!");
+		return map;
+		}
+	}
+
 }

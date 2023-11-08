@@ -1,6 +1,5 @@
 package com.app.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -66,5 +65,8 @@ public class TaskController {
 		
 		return new ResponseEntity<Map<String, String>>(taskService.deleteTask(id),HttpStatus.ACCEPTED);
 	}
-	
+	@GetMapping(value = "/markTaskComplete/{id}")
+	public ResponseEntity<Map<String, String>> markTaskComplete(@PathVariable("id") Long id){
+		return new ResponseEntity<Map<String, String>>(taskService.markTaskComplete(id),HttpStatus.ACCEPTED);
+	}
 }
