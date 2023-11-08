@@ -3,6 +3,7 @@ import { Task } from '../task';
 import { ActivatedRoute } from '@angular/router';
 import { TaskService } from '../task.service';
 import { error } from 'console';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-update-task',
@@ -45,9 +46,23 @@ export class UpdateTaskComponent implements OnInit {
     this.taskService.updateTask(this.task).subscribe(
       (resp)=>{
         console.log(resp);
+        Swal.fire({
+          icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
+          title: 'Update Success!',
+          text: 'Task '+this.task.taskTitle+", Succesfully updated!",
+          showConfirmButton: false, // Automatically close the alert after a short delay
+          timer: 1500, // Adjust the duration (in milliseconds) for the alert to disappear
+        });
     },
     (error)=>{
       console.log(error);
+      Swal.fire({
+        icon: 'error',
+        title: "Update Failed",
+        text: "Task-Creation-Failed",
+        showConfirmButton: false, // Automatically close the alert after a short delay
+        timer: 1500,
+      });
     }
     )
   }

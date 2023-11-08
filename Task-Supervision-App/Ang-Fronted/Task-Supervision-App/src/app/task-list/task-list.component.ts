@@ -3,6 +3,7 @@ import { Task } from '../task';
 import { TaskService } from '../task.service';
 import { response } from 'express';
 import { error } from 'console';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-task-list',
@@ -42,10 +43,24 @@ export class TaskListComponent implements OnInit {
         if(index!=-1){
           this.allTasks.splice(index, 1);
         }
+        Swal.fire({
+          icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
+          title: 'Task Deleted',
+          text: 'You deleted Task:-'+ this.allTasks[index].taskTitle+", successfully!",
+          showConfirmButton: false, // Automatically close the alert after a short delay
+          timer: 1500, // Adjust the duration (in milliseconds) for the alert to disappear
+        });
 
       },
       (error)=>{
         console.log(error);
+        Swal.fire({
+          icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
+          title: 'Deletion Failed!',
+          text: 'Task Deletion Failed',
+          showConfirmButton: false, // Automatically close the alert after a short delay
+          timer: 1500, // Adjust the duration (in milliseconds) for the alert to disappear
+        });
       }
     );
   };
@@ -59,9 +74,23 @@ export class TaskListComponent implements OnInit {
                         if(index!==-1){
                           this.allTasks[index].status = "Completed";
                         }
+                        Swal.fire({
+                          icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
+                          title: 'Marked Completed',
+                          text: 'You marked Task:-'+ this.allTasks[index].taskTitle+", as Completed!",
+                          showConfirmButton: false, // Automatically close the alert after a short delay
+                          timer: 1500, // Adjust the duration (in milliseconds) for the alert to disappear
+                        });
                       },
                       (error)=>{
                         console.log(error);
+                        Swal.fire({
+                          icon: 'error',
+                          title: "Completion Failws",
+                          text: "Task-Completion-Failed",
+                          showConfirmButton: false, // Automatically close the alert after a short delay
+                          timer: 1500,
+                        });
                       }
                     )
   }

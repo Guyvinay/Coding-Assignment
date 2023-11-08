@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Task, ReqTask } from '../task';
 import { TaskService } from '../task.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-task-form',
@@ -39,9 +40,23 @@ export class TaskFormComponent {
            .subscribe(
             (response)=>{
               console.log(response);
+              Swal.fire({
+                icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
+                title: 'Success!',
+                text: 'Your operation was successful.',
+                showConfirmButton: false, // Automatically close the alert after a short delay
+                timer: 1500, // Adjust the duration (in milliseconds) for the alert to disappear
+              });
             },
             (error)=>{
               console.log(error);
+              Swal.fire({
+                icon: 'error',
+                title: "Failed Creating",
+                text: "Task-Creation-Failed",
+                showConfirmButton: false, // Automatically close the alert after a short delay
+                timer: 1500,
+              });
             }
            );
   }
