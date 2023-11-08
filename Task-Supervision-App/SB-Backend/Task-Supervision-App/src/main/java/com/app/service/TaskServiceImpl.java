@@ -1,6 +1,8 @@
 package com.app.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +25,13 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<Task> getAllTasks() {
+	public Map<String, List<Task>> getAllTasks() {
 		List<Task> tasks = taskRepository.findAll();
 		if(tasks.isEmpty())throw new TaskNotFoundException("Task Store Empty! Not any Task to Show...");
-		return tasks;
+		Map<String, List<Task>> map = new HashMap<>();
+		map.put("data", tasks);
+		return map;
+//		return tasks;
 	}
 
 	@Override
@@ -67,14 +72,27 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public String deleteTask(Long id){
+	public Map<String, String> deleteTask(Long id){
 		
-		Task task = taskRepository.findById(id).orElseThrow(
-				()-> new TaskNotFoundException("Task Not Found With id:- "+id)
-				);
+//		Task task = taskRepository.findById(id).orElseThrow(
+//				()-> new TaskNotFoundException("Task Not Found With id:- "+id)
+//				);
+		
+		Optional<Task> optional = taskRepository.findById(id);
+		if(optional.isEmpty()) {
+			Map<String, String> map = new HashMap<>();
+			map.put("message", "Task with id: "+id+" not Found");
+			return map;		
+		}
+		else {
+			Task task = optional.get();
 		taskRepository.delete(task);
+		Map<String, String> map = new HashMap<>();
+		map.put("message", "Task: "+task.getTaskTitle()+" Deleted!");
+		return map;
+		}
 		
-		return "Task:- "+task.getTaskTitle()+" Deleted!";
+		
 	}
 
 }

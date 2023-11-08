@@ -1,10 +1,13 @@
 package com.app.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +35,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/tasks")
+@CrossOrigin(origins = "*")
 public class TaskController {
 	
 	@Autowired
@@ -42,8 +46,8 @@ public class TaskController {
 		return new ResponseEntity<Task>(taskService.createTask(task),HttpStatus.ACCEPTED);
 	}
 	@GetMapping(value = "/getAllTasks")
-	public ResponseEntity<List<Task>> getAllTasks(){
-		return new ResponseEntity<List<Task>>(taskService.getAllTasks(),HttpStatus.ACCEPTED);
+	public ResponseEntity<Map<String, List<Task>>> getAllTasks(){
+		return new ResponseEntity<Map<String, List<Task>>>(taskService.getAllTasks(),HttpStatus.ACCEPTED);
 	}
 	@GetMapping(value = "/getTaskById/{id}")
 	public ResponseEntity<Task> getTaskById(@PathVariable("id") Long id) {
@@ -54,12 +58,13 @@ public class TaskController {
 		return new ResponseEntity<Task>(taskService.getTaskByTitle(title),HttpStatus.ACCEPTED);
 	}
 	@PutMapping(value = "/updtateTask")
-	public ResponseEntity<Task> getTaskByTitle(@RequestBody Task task){
+	public ResponseEntity<Task> updateTask(@RequestBody Task task){
 		return new ResponseEntity<Task>(taskService.updateTask(task),HttpStatus.ACCEPTED);
 	}
 	@DeleteMapping(value = "/deleteTaskById/{id}")
-	public ResponseEntity<String> getTaskByTitle(@PathVariable("id") Long id){
-		return new ResponseEntity<String>(taskService.deleteTask(id),HttpStatus.ACCEPTED);
+	public ResponseEntity<Map<String, String>> deleteTaskById(@PathVariable("id") Long id){
+		
+		return new ResponseEntity<Map<String, String>>(taskService.deleteTask(id),HttpStatus.ACCEPTED);
 	}
 	
 }
