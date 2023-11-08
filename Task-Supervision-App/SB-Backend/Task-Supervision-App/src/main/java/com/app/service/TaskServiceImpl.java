@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.exception.TaskNotFoundException;
+import com.app.model.Profile;
 import com.app.model.Task;
+import com.app.repository.ProfileRepository;
 import com.app.repository.TaskRepository;
 
 @Service
@@ -18,9 +20,20 @@ public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskRepository taskRepository;
 	
+	@Autowired
+	private ProfileRepository profileRepository;
+	
+	
 	@Override
 	public Task createTask(Task task) {
 		if(task==null) throw new TaskNotFoundException("Task Cannot be null");
+		
+		Profile profile = profileRepository
+				            .findById(task.getProfileId())
+	                            .orElseThrow(()->new TaskNotFoundException("Task Cannot be null"));
+		
+		task.setProfile(profile);
+		
 		return taskRepository.save(task);
 	}
 

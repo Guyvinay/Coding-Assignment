@@ -29,7 +29,12 @@ import jakarta.validation.Valid;
  "taskDesc":"This is Task One",
  "status":"Pending"
  }
- 
+ {
+  "taskTitle": "Task Two",
+  "taskDesc": "This is task Two",
+  "status": "pending",
+  "profileId": 3
+}
  */
 
 @RestController
