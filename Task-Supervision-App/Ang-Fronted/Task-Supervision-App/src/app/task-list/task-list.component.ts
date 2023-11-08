@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
 import { response } from 'express';
+import { error } from 'console';
 
 @Component({
   selector: 'app-task-list',
@@ -43,7 +44,23 @@ export class TaskListComponent implements OnInit {
       (error)=>{
         console.log(error);
       }
-    )
+    );
+  };
+
+  markTaskComplete(id:Number){
+    this.taskService.markTaskComplete(id)
+                    .subscribe(
+                      (response)=>{
+                        console.log(response);
+                        const index = this.allTasks.findIndex((task)=>task.id===id);
+                        if(index!==-1){
+                          this.allTasks[index].status = "Completed";
+                        }
+                      },
+                      (error)=>{
+                        console.log(error);
+                      }
+                    )
   }
 
 }

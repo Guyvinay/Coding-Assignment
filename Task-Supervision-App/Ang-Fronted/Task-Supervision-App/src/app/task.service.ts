@@ -36,5 +36,9 @@ export class TaskService {
   deleteTaskById( id: Number ): Observable<String> {
     return this.http.delete<String>(`${this.baseUrl}/deleteTaskById/${id}`);
   }
+  //   Task
+  markTaskComplete(id:Number): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/markTaskComplete/${id}`);
+  }
 
 }
