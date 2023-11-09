@@ -10,12 +10,13 @@ export class ProfileService implements OnInit {
 
 
 
-  private baseUrl = 'http://localhost:8888/api/profile';
-  // private baseUrl = 'https://task-supervision-app.onrender.com/api/tasks';
+  // private baseUrl = 'http://localhost:8888/api/profile';
+  private baseUrl = 'https://task-supervision-app.onrender.com/api/tasks';
 
 
   currentLoggedInProfile!: LoggedInProfile;
 
+  isDashboardDataShown = true;
 
   constructor(private http : HttpClient) { }
 

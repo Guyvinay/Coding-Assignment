@@ -4,7 +4,8 @@ import { TaskService } from '../task.service';
 import { LoggedInProfile } from '../profile';
 import { ProfileService } from '../profile.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { ActivatedRoute, NavigationEnd, Router, Event as RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,6 +16,8 @@ export class DashboardComponent implements OnInit {
 
 
   allTasks:Task[]=[];
+
+  isDashboardDataShown:boolean=true;
   
   curentLoggedInPRofile:LoggedInProfile = {
     id: '',
@@ -30,8 +33,8 @@ export class DashboardComponent implements OnInit {
     private router : Router,
     ){}
 
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     const storedUserData = localStorage.getItem('loggedInUserData');
 
     if(storedUserData){
@@ -53,16 +56,20 @@ export class DashboardComponent implements OnInit {
 
   logOutUser(){
     localStorage.removeItem('loggedInUserData');
+    setTimeout(()=>{
+      this.router.navigate(['/login']);
+    },2000);
     Swal.fire({
       icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
       title: 'Successfully Logged Out',
       text: "You Have Been Successfully Logged Out",
       showConfirmButton: false, // Automatically close the alert after a short delay
-      timer: 1500, // Adjust the duration (in milliseconds) for the alert to disappear
+      timer: 2000, // Adjust the duration (in milliseconds) for the alert to disappear
     });
     setTimeout(()=>{
-      this.router.navigate(['/login']);
+      window.location.reload();
     },2000);
+    
   }
 
 }
