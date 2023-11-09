@@ -12,5 +12,6 @@ export interface Task {
     taskTitle: string;
     taskDesc: string;
     status: string;
+    profileId:string;
     // Add more properties as needed
   }

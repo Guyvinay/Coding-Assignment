@@ -39,8 +39,6 @@ export class DashboardComponent implements OnInit {
     // console.log("Profle From Dashboard");
     if(storedUserData){
       this.curentLoggedInPRofile = JSON.parse(storedUserData);
-      console.log("Gettin Profile from Local Storage");
-      console.log(this.curentLoggedInPRofile);
     }else{
       this.curentLoggedInPRofile = this.profileService.getLoggedInProfile();
       console.log("Gettin Profile from Local Profile Service");
@@ -53,8 +51,9 @@ export class DashboardComponent implements OnInit {
                       },
                       (error)=>{
                         console.log(error);
-                      }
-                     )
+                      });
+
+                      
 
   }
 

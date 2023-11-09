@@ -14,14 +14,7 @@ export class ProfileService implements OnInit {
   // private baseUrl = 'https://task-supervision-app.onrender.com/api/tasks';
 
 
-  currentLoggedInProfile: LoggedInProfile = {
-    name: '',
-    email: '',
-    password: '',
-    profile_picture: '',
-    token: ''
-  }
-
+  currentLoggedInProfile!: LoggedInProfile;
 
 
   constructor(private http : HttpClient) { }
@@ -68,6 +61,7 @@ export class ProfileService implements OnInit {
 
 
   ngOnInit(): void {
+
   }
 
 

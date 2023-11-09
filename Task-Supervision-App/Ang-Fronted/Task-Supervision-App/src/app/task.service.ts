@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ReqTask, Task } from './task';
+import { ProfileService } from './profile.service';
+import { LoggedInProfile } from './profile';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,25 @@ export class TaskService {
   private baseUrl = 'http://localhost:8888/api/tasks';
   // private baseUrl = 'https://task-supervision-app.onrender.com/api/tasks';
 
-  constructor(private http : HttpClient) { }
+  currentLoggedInProfile: LoggedInProfile={
+    name: '',
+    email: '',
+    password: '',
+    profile_picture: '',
+    token: ''
+  };
+
+
+
+  constructor(
+    private http : HttpClient,
+    private profileService : ProfileService
+    ) { }
 
   //   Task
   createTask(task: ReqTask): Observable<ReqTask> {
+    // this.currentLoggedInProfile = this.profileService.getLoggedInProfile();
+    // console.log(this.currentLoggedInProfile.token);
     return this.http.post<ReqTask>( `${this.baseUrl}/createTask`, task);
   }
   //   Task

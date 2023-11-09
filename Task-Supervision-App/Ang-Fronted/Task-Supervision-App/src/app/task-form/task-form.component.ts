@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Task, ReqTask } from '../task';
 import { TaskService } from '../task.service';
 import Swal from 'sweetalert2';
+import { LoggedInProfile } from '../profile';
+import { CurrencyPipe } from '@angular/common';
 
 @Component({
   selector: 'app-task-form',
@@ -13,9 +15,18 @@ export class TaskFormComponent {
   allTasks:Task[]=[];
 
   taskToBeCreated: ReqTask = {
-    taskTitle : '',
+    taskTitle: '',
     taskDesc: '',
-    status: ''
+    status: '',
+    profileId: '1'
+  }
+
+  curentLoggedInPRofile:LoggedInProfile = {
+    name: '',
+    email: '',
+    password: '',
+    profile_picture: '',
+    token: ''
   }
 
   constructor(private taskService: TaskService){}
@@ -31,7 +42,7 @@ export class TaskFormComponent {
                       (error)=>{
                         console.log(error);
                       }
-                     )
+                     );
 
   }
 
@@ -39,7 +50,7 @@ export class TaskFormComponent {
     this.taskService.createTask(this.taskToBeCreated)
            .subscribe(
             (response)=>{
-              console.log(response);
+              // console.log(response);
               Swal.fire({
                 icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
                 title: 'Success!',
