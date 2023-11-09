@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginCreds } from './profile';
+import { LoginCreds, RegisterProfile } from './profile';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,18 @@ export class ProfileService implements OnInit {
 
     return this.http.post<any>(this.baseUrl+"/postSignIn" , loginData,httpOptions);
 
+  }
+
+
+  registerProfile(profileData: RegisterProfile): Observable<any> {
+    const registerData = {
+      name: profileData.name,
+      email: profileData.email,
+      password: profileData.password,
+      role: "admin",
+      profilePic: profileData.profile_picture
+    };
+    return this.http.post<any>(this.baseUrl+"/createProfile",registerData);
   }
 
 
