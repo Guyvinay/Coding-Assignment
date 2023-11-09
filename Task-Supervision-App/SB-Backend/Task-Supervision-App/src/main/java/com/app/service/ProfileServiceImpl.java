@@ -33,6 +33,7 @@ public class ProfileServiceImpl implements ProfileService {
 		
 		profile.setPassword(passwordEncoder.encode(profile.getPassword()));
 		profile.setRole("ROLE_"+profile.getRole().toUpperCase());
+//		profile.setRole("ROLE_ADMIN");
 		Profile save = profileRepository.save(profile);
 		
 		if(save!=null) {
@@ -116,7 +117,12 @@ public class ProfileServiceImpl implements ProfileService {
 			JwtTokenService tokenService = new JwtTokenService();
 			
 			String token = tokenService.generateToken(new User(username,password, authorities));
-			map.put("Token", token);
+			map.put("token", token);
+			map.put("name", profile.getName());
+			map.put("email", profile.getEmail());
+			map.put("role", profile.getRole());
+			map.put("profile_picture", profile.getProfilePic());
+			map.put("id", profile.getId());
 			return map;
 		}
 	}

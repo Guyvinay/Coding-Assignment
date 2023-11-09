@@ -48,12 +48,18 @@ public class TaskController {
 	@PostMapping(value = "/createTask")
 	public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
 		System.out.println("Hii");
-		return new ResponseEntity<Task>(taskService.createTask(task),HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Task>(taskService.createTask(task),HttpStatus.ACCEPTED);
 	}
 	@GetMapping(value = "/getAllTasks")
 	public ResponseEntity<Map<String, List<Task>>> getAllTasks(){
 		return new ResponseEntity<Map<String, List<Task>>>(taskService.getAllTasks(),HttpStatus.ACCEPTED);
 	}
+	
+	@GetMapping(value = "/getAllTasksByProfileId/{id}")
+	public ResponseEntity<Map<String, List<Task>>> getAllTaskByProfileId(@PathVariable("id") Long id ){
+		return new ResponseEntity<Map<String, List<Task>>>(taskService.getAllTaskByProfileId(id),HttpStatus.ACCEPTED);
+	}
+	
 	@GetMapping(value = "/getTaskById/{id}")
 	public ResponseEntity<Map<String, Task>> getTaskById(@PathVariable("id") Long id) {
 		return new ResponseEntity<Map<String, Task>>(taskService.getTaskById(id),HttpStatus.ACCEPTED);

@@ -134,4 +134,13 @@ public class TaskServiceImpl implements TaskService {
 		}
 	}
 
+	@Override
+	public Map<String, List<Task>> getAllTaskByProfileId(Long id) {
+		List<Task> tasks = taskRepository.findAllTaskByProfileId(id);
+		if(tasks.isEmpty())throw new TaskNotFoundException("Task Store Empty! Not any Task to Show...");
+		Map<String, List<Task>> map = new HashMap<>();
+		map.put("data", tasks);
+		return map;
+	}
+
 }

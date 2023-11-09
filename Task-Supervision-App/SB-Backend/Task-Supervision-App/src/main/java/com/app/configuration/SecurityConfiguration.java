@@ -51,9 +51,9 @@ public class SecurityConfiguration {
 				})
 		        .authorizeHttpRequests(auth->{
 		        	auth
-		        	.requestMatchers(HttpMethod.POST,"/api/tasks/createTask").permitAll()
 		        	.requestMatchers(HttpMethod.POST,"/api/profile/createProfile").permitAll()
 		        	.requestMatchers(HttpMethod.POST,"/api/profile/postSignIn").permitAll()
+//		        	.requestMatchers("/api/tasks*/**").permitAll()
 		        	.requestMatchers("/swagger-ui*/**","/v3/api-docs/**").permitAll()
 		        	  .anyRequest()
 				       .authenticated();
