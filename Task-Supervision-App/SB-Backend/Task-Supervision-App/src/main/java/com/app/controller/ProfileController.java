@@ -60,9 +60,9 @@ public class ProfileController {
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
 				);
-		Profile profile = profileService.getProfileOnlyByEmail(request.getUsername());
-		System.out.println(profile);
-		Map<String,Object> map = profileService.generateJwtToken(profile);
+		
+		 Map<String,Object> map = profileService.generateJwtToken(request.getUsername(),request.getPassword(),authentication.getAuthorities());
+		 
 		return ResponseEntity.ok(map);
 	}
 	

@@ -1,22 +1,20 @@
 package com.app.service;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.exception.ProfileNotFoundException;
-import com.app.jwtService.JwtService;
+import com.app.jwtService.JwtTokenService;
 import com.app.model.Profile;
 import com.app.repository.ProfileRepository;
 
@@ -90,18 +88,7 @@ public class ProfileServiceImpl implements ProfileService {
 		return map;
 	}
 
-	@Override
-	public Map<String, Object> generateJwtToken(Profile profile) {
-		Map<String, Object> map = new HashMap<>();
-		JwtService jwtService = new JwtService();
-		String jwtToken = jwtService.jwtTokenGeneration(profile);
-		map.put("token", jwtToken);
-		map.put("email", profile.getEmail());
-		map.put("role", profile.getRole());
-		map.put("name", profile.getName());
-		map.put("picture", profile.getProfilePic());
-		return map;
-	}
+	
 
 	@Override
 	public Profile getProfileOnlyByEmail(String email) {
@@ -114,6 +101,27 @@ public class ProfileServiceImpl implements ProfileService {
 			return profile;
 		}
 	}
+
+	@Override
+	public Map<String, Object> generateJwtToken(String username, String password,
+			Collection<? extends GrantedAuthority> authorities) {
+		Map<String, Object> map = new HashMap<>();
+		Optional<Profile> optional = profileRepository.findByEmail(username);
+		if(optional.isEmpty()) {
+			throw new ProfileNotFoundException("User not registered! ");
+		}else {
+			
+			Profile profile = optional.get();
+			
+			JwtTokenService tokenService = new JwtTokenService();
+			
+			String token = tokenService.generateToken(new User(username,password, authorities));
+			map.put("Token", token);
+			return map;
+		}
+	}
+
+	
 
 
 
