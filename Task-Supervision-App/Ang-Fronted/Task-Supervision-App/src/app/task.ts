@@ -5,7 +5,6 @@ export interface Task {
     taskDesc: string;
     status: string;
     createdAt:string
-    // Add more properties as needed
   }
   
   export interface ReqTask {
@@ -13,5 +12,4 @@ export interface Task {
     taskDesc: string;
     status: string;
     profileId:string;
-    // Add more properties as needed
   }

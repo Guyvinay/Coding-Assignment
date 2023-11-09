@@ -15,6 +15,7 @@ export class UserLoginComponent implements OnInit {
 
 
   loggedProfileData: LoggedInProfile = {
+    id: '',
     name: '',
     email: '',
     password: '',

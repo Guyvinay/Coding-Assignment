@@ -14,6 +14,7 @@ export interface RegisterProfile {
 }
 
 export interface LoggedInProfile {
+    id:'',
     name:'',
     email:'',
     password:'',

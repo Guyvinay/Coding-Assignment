@@ -15,17 +15,13 @@ export class DashboardComponent implements OnInit {
   allTasks:Task[]=[];
   
   curentLoggedInPRofile:LoggedInProfile = {
+    id: '',
     name: '',
     email: '',
     password: '',
     profile_picture: '',
     token: ''
   }
-
-
-
-
-
   constructor(
     private taskService: TaskService,
     private profileService : ProfileService
@@ -35,26 +31,20 @@ export class DashboardComponent implements OnInit {
 
     const storedUserData = localStorage.getItem('loggedInUserData');
 
-    this.curentLoggedInPRofile = this.profileService.getLoggedInProfile();
-    // console.log("Profle From Dashboard");
     if(storedUserData){
       this.curentLoggedInPRofile = JSON.parse(storedUserData);
     }else{
       this.curentLoggedInPRofile = this.profileService.getLoggedInProfile();
-      console.log("Gettin Profile from Local Profile Service");
     }
+
     this.taskService.getAllTasks()
                      .subscribe(
                       (response)=>{
                         this.allTasks = response;
-                        console.log(this.allTasks);
                       },
                       (error)=>{
                         console.log(error);
                       });
-
-                      
-
   }
 
 

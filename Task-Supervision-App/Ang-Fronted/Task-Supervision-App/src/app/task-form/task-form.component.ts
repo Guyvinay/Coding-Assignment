@@ -3,7 +3,7 @@ import { Task, ReqTask } from '../task';
 import { TaskService } from '../task.service';
 import Swal from 'sweetalert2';
 import { LoggedInProfile } from '../profile';
-import { CurrencyPipe } from '@angular/common';
+import { ProfileService } from '../profile.service';
 
 @Component({
   selector: 'app-task-form',
@@ -14,14 +14,8 @@ export class TaskFormComponent {
 
   allTasks:Task[]=[];
 
-  taskToBeCreated: ReqTask = {
-    taskTitle: '',
-    taskDesc: '',
-    status: '',
-    profileId: '1'
-  }
-
-  curentLoggedInPRofile:LoggedInProfile = {
+  currentLoggedInProfile:LoggedInProfile = {
+    id: '',
     name: '',
     email: '',
     password: '',
@@ -29,15 +23,35 @@ export class TaskFormComponent {
     token: ''
   }
 
-  constructor(private taskService: TaskService){}
+  taskToBeCreated: ReqTask = {
+    taskTitle: '',
+    taskDesc: '',
+    status: '',
+    profileId: '',
+  }
+
+  
+
+  constructor(
+    private taskService: TaskService,
+    private profileService : ProfileService
+    ){}
 
   ngOnInit(): void {
+
+    const storedUserData = localStorage.getItem('loggedInUserData');
+    if(storedUserData){
+      this.currentLoggedInProfile = JSON.parse(storedUserData);
+    }else{
+      this.currentLoggedInProfile = this.profileService.getLoggedInProfile();
+    }
+    // console.log(this.currentLoggedInProfile);
 
     this.taskService.getAllTasks()
                      .subscribe(
                       (response)=>{
                         this.allTasks = response;
-                        console.log(this.allTasks);
+                        // console.log(this.allTasks);
                       },
                       (error)=>{
                         console.log(error);
@@ -47,6 +61,7 @@ export class TaskFormComponent {
   }
 
   createProject(){
+    this.taskToBeCreated.profileId=this.currentLoggedInProfile.id;
     this.taskService.createTask(this.taskToBeCreated)
            .subscribe(
             (response)=>{
