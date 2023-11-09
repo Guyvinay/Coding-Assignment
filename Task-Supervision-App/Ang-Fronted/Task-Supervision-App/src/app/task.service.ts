@@ -67,25 +67,31 @@ export class TaskService {
 
     return this.http.get<any>(`${this.baseUrl}/getAllTasks`,this.httpHeaders);
   }
+
+  getAllTasksByUsers(): Observable<any> {
+
+    return this.http.get<any>(`${this.baseUrl}/getAllTasksByProfileId/${this.currentLoggedInProfile.id}`,this.httpHeaders);
+  }
+
   //   Task
   getTaskById( id: Number ): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/getTaskById/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/getTaskById/${id}`,this.httpHeaders);
   }
   //   Task
-  getTaskByTitle( title: String ): Observable<Task> {
-    return this.http.get<Task>(`${this.baseUrl}/getTaskByTitle/${title}`);
+  getTaskByTitle( title: String ): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/getTaskByTitle/${title}`,this.httpHeaders);
   }
   //   Task
-  updateTask(task:Task): Observable<Task> {
-    return this.http.put<Task>(`${this.baseUrl}/updtateTask`, task);
+  updateTask(task:Task): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/updtateTask`, task,this.httpHeaders);
   }
   //   Task
-  deleteTaskById( id: Number ): Observable<String> {
-    return this.http.delete<String>(`${this.baseUrl}/deleteTaskById/${id}`);
+  deleteTaskById( id: Number ): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/deleteTaskById/${id}`,this.httpHeaders);
   }
   //   Task
   markTaskComplete(id:Number): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/markTaskComplete/${id}`);
+    return this.http.get<any>(`${this.baseUrl}/markTaskComplete/${id}`,this.httpHeaders);
   }
 
 }

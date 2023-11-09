@@ -20,7 +20,18 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.taskService.getAllTasks()
+    // this.taskService.getAllTasks()
+    //                  .subscribe(
+    //                   (response)=>{
+    //                     this.allTasks = response.data;
+    //                     console.log(this.allTasks);
+    //                     this.filteredTasks = this.allTasks;
+    //                   },
+    //                   (error)=>{
+    //                     console.log(error);
+    //                   }
+    //                  );
+    this.taskService.getAllTasksByUsers()
                      .subscribe(
                       (response)=>{
                         this.allTasks = response.data;
@@ -30,7 +41,7 @@ export class TaskListComponent implements OnInit {
                       (error)=>{
                         console.log(error);
                       }
-                     )
+                     );
 
   }
 
@@ -55,7 +66,7 @@ export class TaskListComponent implements OnInit {
       (error)=>{
         console.log(error);
         Swal.fire({
-          icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
+          icon: 'error', // Set the alert icon (success, error, warning, info, etc.)
           title: 'Deletion Failed!',
           text: 'Task Deletion Failed',
           showConfirmButton: false, // Automatically close the alert after a short delay
