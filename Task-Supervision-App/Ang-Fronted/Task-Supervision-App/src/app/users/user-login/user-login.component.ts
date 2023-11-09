@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoginCreds } from 'src/app/profile';
+import { LoggedInProfile, LoginCreds } from 'src/app/profile';
 import { ProfileService } from 'src/app/profile.service';
 import Swal from 'sweetalert2';
 
@@ -14,7 +14,13 @@ import Swal from 'sweetalert2';
 export class UserLoginComponent implements OnInit {
 
 
-
+  loggedProfileData: LoggedInProfile = {
+    name: '',
+    email: '',
+    password: '',
+    profile_picture: '',
+    token: ''
+  }
 
   loginCreds:LoginCreds = {
     username: '',
@@ -37,10 +43,16 @@ export class UserLoginComponent implements OnInit {
     this.profileService.loginUser(this.loginCreds)
                .subscribe(
                 (response)=>{
-                  console.log(response);
+                  
+                  this.loggedProfileData = response;
+                  this.profileService.setLoggedInProfile(this.loggedProfileData);
+                  localStorage.setItem('loggedInUserData',JSON.stringify(this.loggedProfileData));
+                  // console.log("Fetching from Profile Service"+this.profileService.getLoggedInProfile());
+
                   setTimeout(()=>{
                     this.router.navigate(['/dashboard']);
                   },2000);
+
                   Swal.fire({
                     icon: 'success', // Set the alert icon (success, error, warning, info, etc.)
                     title: 'Login Success!',

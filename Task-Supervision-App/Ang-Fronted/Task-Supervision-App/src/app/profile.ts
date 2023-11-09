@@ -12,3 +12,11 @@ export interface RegisterProfile {
     password:'',
     profile_picture:'',
 }
+
+export interface LoggedInProfile {
+    name:'',
+    email:'',
+    password:'',
+    profile_picture:'',
+    token:'',
+}

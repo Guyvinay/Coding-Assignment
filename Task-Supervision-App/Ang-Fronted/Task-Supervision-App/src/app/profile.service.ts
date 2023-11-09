@@ -1,15 +1,27 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LoginCreds, RegisterProfile } from './profile';
+import { LoggedInProfile, LoginCreds, RegisterProfile } from './profile';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService implements OnInit {
 
+
+
   private baseUrl = 'http://localhost:8888/api/profile';
   // private baseUrl = 'https://task-supervision-app.onrender.com/api/tasks';
+
+
+  currentLoggedInProfile: LoggedInProfile = {
+    name: '',
+    email: '',
+    password: '',
+    profile_picture: '',
+    token: ''
+  }
+
 
 
   constructor(private http : HttpClient) { }
@@ -42,6 +54,15 @@ export class ProfileService implements OnInit {
       profilePic: profileData.profile_picture
     };
     return this.http.post<any>(this.baseUrl+"/createProfile",registerData);
+  }
+
+
+  setLoggedInProfile(loggedProfile:LoggedInProfile){
+    this.currentLoggedInProfile=loggedProfile;
+  }
+
+  getLoggedInProfile(){
+    return this.currentLoggedInProfile;
   }
 
 
