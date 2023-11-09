@@ -3,11 +3,12 @@
 
 ## Production Server
 
-[Production Server Link]([https://your-production-server-url/](https://coding-assignment-sand.vercel.app/))
+Production Server Link: ([https://your-production-server-url/](https://coding-assignment-sand.vercel.app/))
+ (requires a bit of time for the first visit cause of render deployment)
 
 ## Project Presentation
 
-[Project Presentation Link]([https://link-to-your-project-presentation/](https://drive.google.com/file/d/10rrEeheK-6mxHgIjqBwaiaME_-ercN5B/view?usp=sharing))
+Project Presentation Link: ([https://link-to-your-project-presentation/](https://drive.google.com/file/d/10rrEeheK-6mxHgIjqBwaiaME_-ercN5B/view?usp=sharing))
 
 ## Features
 
