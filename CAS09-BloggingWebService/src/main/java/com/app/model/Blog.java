@@ -1,8 +1,18 @@
 package com.app.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Blog {
 
     @Id
@@ -10,11 +20,13 @@ public class Blog {
     private String _id;
     private String title;
     private String body;
-    private String cDate;
-    private String uDate;
+    @CreationTimestamp
+    private LocalDateTime cDate;
+    @UpdateTimestamp
+    private LocalDateTime uDate;
 
     @ManyToOne
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private Users user;
 
 
