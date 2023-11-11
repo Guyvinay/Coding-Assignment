@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,6 +27,7 @@ public class Blog {
     @UpdateTimestamp
     private LocalDateTime uDate;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
