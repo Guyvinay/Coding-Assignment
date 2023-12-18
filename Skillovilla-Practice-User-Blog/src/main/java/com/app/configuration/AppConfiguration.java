@@ -1,8 +1,11 @@
 package com.app.configuration;
 
+import java.security.Key;
 import java.util.Arrays;
 import java.util.Collections;
 
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -70,6 +73,11 @@ public class AppConfiguration {
 	@Bean
 	AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
 		return config.getAuthenticationManager();
+	}
+
+	@Bean
+	Key jwtKey() {
+		return Keys.secretKeyFor(SignatureAlgorithm.HS256);
 	}
 
 }
