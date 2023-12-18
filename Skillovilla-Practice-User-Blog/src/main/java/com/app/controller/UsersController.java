@@ -1,12 +1,19 @@
 package com.app.controller;
 
+import com.app.modal.LoginCreds;
 import com.app.modal.Users;
 import com.app.service.UsersService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import lombok.val;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.pulsar.PulsarProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,10 +32,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@Slf4j
 public class UsersController {
 
 	@Autowired
     private UsersService usersService;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @PostMapping()
     private ResponseEntity<Users> createUsers(@RequestBody Users user){
@@ -49,6 +60,17 @@ public class UsersController {
     @DeleteMapping(value = "/{email}")
     private ResponseEntity<String> deleteUserById(@PathVariable("email") String email){
         return new ResponseEntity<String>(usersService.deleteUsers(email), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/login")
+    private String loginUserBasicAuth(@RequestBody LoginCreds loginCreds){
+        System.out.println("Inside Login Method: Before Auth");
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(loginCreds.getEmail(),loginCreds.getPassword())
+        );
+        System.out.println("Inside Login Method: After Auth");
+        String user = authentication.getName();
+        return user+", Logged-In Sucessfully";
     }
 
 }
