@@ -3,6 +3,7 @@ package com.app.controller;
 import com.app.modal.LoginCreds;
 import com.app.modal.Users;
 import com.app.service.UsersService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.XSlf4j;
 import lombok.val;
@@ -40,7 +41,7 @@ public class UsersController {
     private UsersService usersService;
 
     @PostMapping()
-    private ResponseEntity<Users> createUsers(@RequestBody Users user){
+    private ResponseEntity<Users> createUsers(@Valid @RequestBody Users user){
         return new ResponseEntity<Users>(usersService.createUsers(user), HttpStatus.CREATED);
     }
     @GetMapping(value = "/{_id}")
