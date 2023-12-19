@@ -1,5 +1,6 @@
 package com.app.configuration;
 
+import com.app.exception.UserNotFoundException;
 import com.app.modal.Users;
 import com.app.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Users> optional = usersRepository.findByEmail(username);
-        System.out.println("From Use details Service: outside!");
-        if(!optional.isEmpty()){
-            Users user = optional.get();
+        Users user = usersRepository.findByEmail(username)
+                .orElseThrow(
+                        ()-> new UserNotFoundException("User: "+username+", Not Found!")
+                );
             System.out.println("From Use details Service"+user.getName());
             List<GrantedAuthority> authorityList = new ArrayList<>();
             authorityList.add(new SimpleGrantedAuthority(user.getRole()));
             return new User(user.getEmail(),user.getPassword(),authorityList);
-        }
-        return null;
+
     }
 }

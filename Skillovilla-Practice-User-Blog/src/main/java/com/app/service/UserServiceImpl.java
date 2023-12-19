@@ -1,5 +1,6 @@
 package com.app.service;
 
+import com.app.exception.UserNotFoundException;
 import com.app.jwtImpl.JwtSource;
 import com.app.modal.Users;
 import com.app.repository.UsersRepository;
@@ -28,21 +29,26 @@ public class UserServiceImpl implements UsersService {
 
     @Override
     public Users getUserById(String _id) {
-        Optional<Users> optional = usersRepository.findById(_id);
-        if (optional.isPresent()) return optional.get();
-        return null;
+        Users user = usersRepository.findById(_id)
+                .orElseThrow(
+                        ()->new UserNotFoundException("User: "+_id+", not found!")
+                );
+        return user;
     }
 
     @Override
     public Users getUserByEmail(String email) {
-        Optional<Users> optional = usersRepository.findByEmail(email);
-        if (optional.isPresent()) return optional.get();
-        return null;
+        Users user = usersRepository.findById(email)
+                .orElseThrow(
+                        ()->new UserNotFoundException("User: "+email+", not found!")
+                );
+        return user;
     }
 
     @Override
     public List<Users> getAllUsers() {
         List<Users> list = usersRepository.findAll();
+        if(list.isEmpty())throw new UserNotFoundException("No Users Found!");
         return list;
     }
 
@@ -61,13 +67,13 @@ public class UserServiceImpl implements UsersService {
 
     @Override
     public String deleteUsers(String email) {
-        Optional<Users> optional = usersRepository.findByEmail(email);
-        if (optional.isPresent()) {
-            Users user = optional.get();
+        Users user = usersRepository.findById(email)
+                .orElseThrow(
+                        ()->new UserNotFoundException("User: "+email+", not found!")
+                );
+
             usersRepository.delete(user);
-            return "User: " + user.getEmail() + ", deleted from database.";
-        }
-        return null;
+        return "User "+email+", deleted successfully!";
     }
 
     @Override
