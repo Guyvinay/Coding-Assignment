@@ -53,7 +53,7 @@ public class PaymentServiceImpl implements PaymentService {
 		
 		
 		student.setCurrent_debt(
-				student.getCurrent_debt() - payable_amount
+				student.getCurrent_debt() - payment.getPaying_amount()
 				);
 		student.getPayments().add(payment);
 		

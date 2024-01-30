@@ -7,6 +7,12 @@ import java.util.List;
 
 @Service
 public class BlogServiceImpl implements BlogService {
+
+    @Override
+    public Blog createBlog(String user_id, Blog blog) {
+        return null;
+    }
+
     @Override
     public Blog getBlogById(String blog_id) {
         return null;
@@ -22,10 +28,7 @@ public class BlogServiceImpl implements BlogService {
         return null;
     }
 
-    @Override
-    public Blog createBlog(String user_id, Blog blog) {
-        return null;
-    }
+
 
     @Override
     public Blog updateBlog(String user_id, Blog blog) {

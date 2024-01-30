@@ -2,6 +2,7 @@ package com.app.controller;
 
 import java.util.List;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class StudentController {
 	private StudentService studentService;
 	
 	@PostMapping()
-	public ResponseEntity<Student> addStudent(@RequestBody Student student){
+	public ResponseEntity<Student> addStudent( @Valid @RequestBody Student student){
 		return new ResponseEntity<Student>(
 				studentService.addStudent(student),
 				HttpStatus.ACCEPTED

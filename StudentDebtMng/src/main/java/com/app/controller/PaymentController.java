@@ -3,6 +3,7 @@ package com.app.controller;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,9 @@ public class PaymentController {
 	private PaymentService paymentService;
 	
 	@PostMapping(value = "/{student_id}")
-	public ResponseEntity<Map<String, Object>> addPayment(@PathVariable("student_id") String student_id, @RequestBody Payment payment){
+	public ResponseEntity<Map<String, Object>> addPayment(
+			@PathVariable("student_id") String student_id,
+			@Valid @RequestBody Payment payment){
 		return new ResponseEntity<Map<String,Object>>(
 				paymentService.addPayment(student_id, payment),
 				HttpStatus.ACCEPTED
