@@ -1,0 +1,16 @@
+
+1.How will you tackle the challenge above?
+--> To read, write something to CSV file first read the structure of CSV file, and since using java to perform Ops, need to use understand about BufferedReader-BufferredWriter to read and write to CSV files.
+--> After reading CSV file analyze the output the devide that incomponent to do particular part of processing.
+--> After analysing output carefully work with airthematic operations and value updation, maybe Use HashMap or LinkedHashMap if want to keep insertion order.
+--> And write data again to csv file.
+
+2. What type of errors you would you check for?
+--> While reading csv file  caheck availability and handle accordingly.
+--> While writing csv file  caheck availability and handle accordingly.	
+
+3. How might a user break your code?
+--> Code can be broke when not providing csv data in proper format
+--> If there is any Airthematic logical error with values like dividing with 0 (/0)
+--> in this case assuming values can be hold in Double, if anyone provide values that can exceeds Double's capacity like insanely larger values.
+--> Circular dependency can also break code like A:=5+B, b:=5+A, one need to be bullet value form.

@@ -1,0 +1,11 @@
+While Creating an API thing to consider:
+   1. Security should be properly implemented with the API, Authentication, Authorization, role based authorization, JWT authentication etc,
+   2. API endpoints should be meaningful with needing less path variables,
+   3. Handling edge cases, exceptions gracefully with proper message response,
+   4. Provide code comment/logging, Creating API documentation.
+
+While Consuming an API thing to consider:
+   1. Trying understanding the API documentation and have clearity regarding the endpoints,
+   2. Handling errors gracefully and give proper message,
+   3. Follow Standard Authentication-Authorization a/c to API documentation,
+   4. Understanding the API response and consume accordingly.

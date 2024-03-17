@@ -1,0 +1,15 @@
+
+1.How will you tackle the challenge above?
+--> Read files, Input.csv output.csv file(BufferedReader/Writer can be used)
+--> After reading CSV file analyze the input that is about to be read.
+--> After analysing input carefully work with airthematic operations and value updation, maybe Use HashMap or LinkedHashMap if want to keep insertion order.
+--> And write data again to csv file.
+
+2. What type of errors you would you check for?
+--> IOExceptions While reading and writing to csv files.
+
+3. How might a user break your code?
+--> Code can be broke when not providing csv data in proper format
+--> If there is any Airthematic logical error with values like dividing with 0 (/0)
+--> in this case assuming values can be hold in Double, if anyone provide values that can exceeds Double's capacity like insanely larger values.
+--> Circular dependency can also break code like A:=5+B, b:=5+A, one need to be bullet value form.
